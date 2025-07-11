@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Users,
   Calendar,
@@ -14,7 +14,6 @@ import {
   Home,
   GraduationCap,
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 const menuItems = [
@@ -32,6 +31,20 @@ const menuItems = [
 export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
+  // Collapse sidebar on mobile view
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 640) {
+        setIsCollapsed(true)
+      } else {
+        setIsCollapsed(false)
+      }
+    }
+    handleResize()
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
+
   return (
     <div
       className={cn("bg-slate-900 text-white transition-all duration-300 flex flex-col", isCollapsed ? "w-16" : "w-64")}
@@ -39,32 +52,31 @@ export default function Sidebar() {
       <div className="p-4 border-b border-slate-700">
         <div className="flex items-center justify-between">
           {!isCollapsed && <h1 className="text-xl font-bold">EduManage</h1>}
-          <Button
-            variant="ghost"
-            size="icon"
+          <button
+            type="button"
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="text-white hover:bg-slate-800"
+            className="text-white hover:bg-slate-800 p-2 rounded"
           >
             {isCollapsed ? <Menu className="h-4 w-4" /> : <X className="h-4 w-4" />}
-          </Button>
+          </button>
         </div>
       </div>
-
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
           {menuItems.map((item) => (
             <li key={item.label}>
-              <Button
-                variant={item.active ? "secondary" : "ghost"}
+              <a
+                href={item.href}
                 className={cn(
-                  "w-full justify-start text-white hover:bg-slate-800",
+                  "flex items-center w-full px-2 py-2 rounded text-white hover:bg-slate-800 transition",
                   item.active && "bg-slate-700 hover:bg-slate-600",
-                  isCollapsed && "px-2",
+                  isCollapsed && "justify-center",
                 )}
+                style={{ minHeight: 40 }}
               >
                 <item.icon className="h-4 w-4" />
                 {!isCollapsed && <span className="ml-3">{item.label}</span>}
-              </Button>
+              </a>
             </li>
           ))}
         </ul>

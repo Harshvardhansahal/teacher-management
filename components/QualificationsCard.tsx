@@ -1,8 +1,5 @@
 "use client"
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
 import { Plus, Edit, Trash2 } from "lucide-react"
 import type { Qualification } from "@/types/teacher"
 
@@ -16,22 +13,22 @@ export default function QualificationsCard({ qualifications, type, title }: Qual
   const filteredQualifications = qualifications.filter((q) => q.type === type)
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-lg font-semibold">{title}</CardTitle>
-        <Button size="sm" variant="outline">
+    <div className="bg-white rounded-lg shadow-sm border mb-6">
+      <div className="flex flex-row items-center justify-between px-6 py-4 border-b">
+        <h2 className="text-lg font-semibold">{title}</h2>
+        <button className="flex items-center px-3 py-1.5 border rounded text-sm hover:bg-gray-100 transition" type="button">
           <Plus className="h-4 w-4 mr-2" />
           Add {type === "private" ? "Private" : "Group"} Qualification
-        </Button>
-      </CardHeader>
-      <CardContent>
+        </button>
+      </div>
+      <div className="px-6 py-4">
         {filteredQualifications.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
             <p>No {type} qualifications added yet.</p>
-            <Button variant="ghost" className="mt-2">
+            <button className="flex items-center mt-2 px-3 py-1.5 border rounded text-sm hover:bg-gray-100 transition" type="button">
               <Plus className="h-4 w-4 mr-2" />
               Add your first qualification
-            </Button>
+            </button>
           </div>
         ) : (
           <div className="space-y-3">
@@ -44,27 +41,26 @@ export default function QualificationsCard({ qualifications, type, title }: Qual
                   <div>
                     <h4 className="font-medium text-gray-900">{qualification.name}</h4>
                     <div className="flex items-center space-x-2 mt-1">
-                      <Badge variant={type === "private" ? "default" : "secondary"}>
+                      <span className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${type === "private" ? "bg-blue-100 text-blue-800" : "bg-green-100 text-green-800"}`}>
                         {type === "private" ? "Private" : "Group"}
-                      </Badge>
+                      </span>
                       <span className="text-sm text-gray-600">${qualification.rate}/hr</span>
                     </div>
                   </div>
                 </div>
-
                 <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="sm">
+                  <button className="p-2 rounded hover:bg-gray-200" type="button">
                     <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-red-600 hover:text-red-700">
+                  </button>
+                  <button className="p-2 rounded text-red-600 hover:bg-red-50 hover:text-red-700" type="button">
                     <Trash2 className="h-4 w-4" />
-                  </Button>
+                  </button>
                 </div>
               </div>
             ))}
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }

@@ -16,7 +16,6 @@ A modern, responsive teacher management interface built with Next.js, TypeScript
 - **TypeScript** - Type safety and better developer experience
 - **Tailwind CSS** - Utility-first CSS framework
 - **Lucide React** - Modern icon library
-- **shadcn/ui** - High-quality UI components
 
 ## Getting Started
 
@@ -131,7 +130,8 @@ src/
 4. Add tests if applicable
 5. Submit a pull request
 
-## License
+## Preview 
+![alt text](image.png)
 
-This project is licensed under the MIT License.
+![alt text](image-1.png)
 \`\`\`
