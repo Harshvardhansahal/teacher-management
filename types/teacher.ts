@@ -32,3 +32,4 @@ export interface TeacherData {
   qualifications: Qualification[]
   schedule: ScheduleSlot[]
 }
+
